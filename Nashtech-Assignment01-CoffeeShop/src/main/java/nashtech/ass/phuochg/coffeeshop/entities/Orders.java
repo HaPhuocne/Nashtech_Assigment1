@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,6 +36,10 @@ public class Orders {
 	
 	@Column
 	private double total;
+	
+	@ManyToOne
+	@JoinColumn(name = "idAcount")
+	private Account account;
 	
 	@OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
 	private Set<OrderDetails> orderDetails;

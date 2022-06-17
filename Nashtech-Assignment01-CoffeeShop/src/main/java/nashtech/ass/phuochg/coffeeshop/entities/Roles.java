@@ -33,6 +33,8 @@ public class Roles {
 	@Column(nullable = false,length = 256 )
 	private String name;
 
+	
+	
 	@OneToMany(mappedBy = "roles",cascade = CascadeType.ALL)
 	private Set<Account> accounts;
 }

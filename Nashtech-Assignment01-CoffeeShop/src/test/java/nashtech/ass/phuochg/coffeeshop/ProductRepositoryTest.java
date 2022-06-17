@@ -57,19 +57,19 @@ public class ProductRepositoryTest {
 		rolesRepository.save(roles);
 		
 		
-		Account acc = new Account();
-		acc.setEmail("testadmin");
-		acc.setPassword("test123");
-		acc.setRoles(roles);
-		
-		accountRepository.save(acc);
-		
-		Information info = new Information();
-		info.setName("test");
-		info.setAddress("Testlun");
-		info.setPhoneNumber("12312312");
-		info.setAccount(acc);
-		Infopo.save(info);
+//		Account acc = new Account();
+//		acc.setEmail("testadmin");
+//		acc.setPassword("test123");
+//		acc.setRoles(roles);
+//		
+//		accountRepository.save(acc);
+//		
+//		Information info = new Information();
+//		info.setName("test");
+//		info.setAddress("Testlun");
+//		info.setPhoneNumber("12312312");
+//		info.setAccount(acc);
+//		Infopo.save(info);
 			
 		Products product = new Products();
 		product.setProductName("test");

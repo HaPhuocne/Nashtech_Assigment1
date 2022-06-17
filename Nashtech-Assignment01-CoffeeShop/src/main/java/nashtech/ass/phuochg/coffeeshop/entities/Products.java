@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -31,13 +32,6 @@ public class Products {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProduct;
-
-	@ManyToOne
-	@JoinColumn(name = "idCategory")
-	private Categories categories;
-	
-	@OneToOne(mappedBy = "products")
-	private OrderDetails orderDetails;
 	
 	@Column(nullable = false, length = 256)
 	private String productName;
@@ -58,6 +52,16 @@ public class Products {
 	private String updateDate;
 	
 	
+	
+	@ManyToMany(mappedBy = "listProducts")
+    private Set<Account> accounts;
+
+	@ManyToOne
+	@JoinColumn(name = "idCategory")
+	private Categories categories;
+	
+	@OneToOne(mappedBy = "products")
+	private OrderDetails orderDetails;
 	
 	
 

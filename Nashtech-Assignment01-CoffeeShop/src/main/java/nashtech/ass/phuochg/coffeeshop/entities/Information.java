@@ -27,22 +27,19 @@ public class Information {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idInfo;
-	
-	@Column
-	private Long idAcount;
-//	
-	@Column(nullable = false,length = 256 )
-	private String name;
-	
-	@Column(nullable = false,length = 10 )
-	private String phoneNumber;
-	
-	@Column(nullable = false,length = 256 )
-	private String address;
-	
-	@OneToOne(cascade =CascadeType.ALL )
-	@JoinColumn(name ="idAcount",referencedColumnName = "idAcount")
-	private Account account;
-	
 
+	@Column(nullable = false, length = 256)
+	private String name;
+
+	@Column(nullable = false, length = 10)
+	private String phoneNumber;
+
+	@Column(nullable = false, length = 256)
+	private String address;
+
+	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idAcount")
+	private Account account;
 }

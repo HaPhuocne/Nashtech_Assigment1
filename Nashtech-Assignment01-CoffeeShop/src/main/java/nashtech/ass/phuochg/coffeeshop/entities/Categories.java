@@ -33,6 +33,8 @@ public class Categories {
 	@Column(nullable = false,length = 256)
 	private String nameCategory;
 	
+	
+	
 	@OneToMany(mappedBy = "categories", cascade = CascadeType.ALL)
 	private Set<Products> products;
 	

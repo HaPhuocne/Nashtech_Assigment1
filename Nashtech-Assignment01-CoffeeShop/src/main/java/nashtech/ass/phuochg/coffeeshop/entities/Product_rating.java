@@ -19,8 +19,6 @@ import lombok.Setter;
 public class Product_rating {
 	@Id
 	private long id;
-	@Column(nullable = false)
-	private long idAcount;
 	
 	@Column(length = 256)
 	private String comment;

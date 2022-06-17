@@ -34,9 +34,6 @@ public class OrderDetails {
 	@JoinColumn(name = "idOrder")
 	private Orders orders;
 
-//	@Column
-//	private Long idProduct;
-	
 	@Column
 	private String orderdetailName;
 	
@@ -47,6 +44,7 @@ public class OrderDetails {
 	private double orderdetailPrice;
 	
 
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idProduct",referencedColumnName = "idProduct")
 	private Products products;
