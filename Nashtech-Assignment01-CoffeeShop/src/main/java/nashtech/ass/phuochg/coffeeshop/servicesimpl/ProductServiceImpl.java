@@ -3,23 +3,25 @@ package nashtech.ass.phuochg.coffeeshop.servicesimpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import nashtech.ass.phuochg.coffeeshop.entities.Products;
 import nashtech.ass.phuochg.coffeeshop.repositories.ProductRepository;
 import nashtech.ass.phuochg.coffeeshop.services.ProductServices;
 
+@Service
 public class ProductServiceImpl implements ProductServices {
 
-	@Autowired
+	@Autowired(required = false)
 	private ProductRepository productRepository;
+	@Autowired(required = false)
+	Products products;
 
-	@Override
 	public Products addProduct(Products products) {
 
 		return productRepository.save(products);
 	}
 
-	@Override
 	public Products updateProduct(long id, Products products) {
 		if (products != null) {
 			Products reProducts = productRepository.getOne(id);
@@ -37,7 +39,7 @@ public class ProductServiceImpl implements ProductServices {
 		return null;
 	}
 
-	@Override
+	
 	public boolean deleteProduct(long id) {
 		if (id >= 1) {
 			Products products = productRepository.getById(id);
@@ -49,13 +51,12 @@ public class ProductServiceImpl implements ProductServices {
 		return false;
 	}
 
-	@Override
+	
 	public Products getOneProduct(long id) {
 
 		return productRepository.getById(id);
 	}
 
-	@Override
 	public List<Products> getAllProduct() {
 		return productRepository.findAll();
 	}

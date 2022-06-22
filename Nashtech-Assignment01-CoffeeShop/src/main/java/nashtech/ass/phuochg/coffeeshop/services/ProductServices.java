@@ -2,6 +2,7 @@ package nashtech.ass.phuochg.coffeeshop.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import nashtech.ass.phuochg.coffeeshop.entities.Products;
 
 public interface ProductServices {

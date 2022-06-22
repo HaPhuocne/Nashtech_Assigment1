@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import nashtech.ass.phuochg.coffeeshop.entities.Products;
 import nashtech.ass.phuochg.coffeeshop.services.ProductServices;
- 
+
+
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
@@ -44,4 +45,3 @@ public class ProductsController {
 		return productServices.getAllProduct();
 	}
 }
-

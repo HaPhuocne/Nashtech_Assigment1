@@ -1,9 +1,9 @@
 package nashtech.ass.phuochg.coffeeshop.entities;
 
+//import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,13 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.criteria.Order;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+//import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +31,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-
+@NamedQueries({
+    @NamedQuery(name = "Account.getEmail", query = "SELECT a FROM Account a where a.email = :email")})
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +60,13 @@ public class Account {
 	@JoinTable(name = "product_rating", joinColumns = @JoinColumn(name = "idAcount"), inverseJoinColumns = @JoinColumn(name = "idProduct"))
 
 	private List<Products> listProducts;
+
+	public Account(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+	
+	
 
 }
