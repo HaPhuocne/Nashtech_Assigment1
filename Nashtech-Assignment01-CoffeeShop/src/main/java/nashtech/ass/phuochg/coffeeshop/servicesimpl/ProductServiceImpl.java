@@ -2,14 +2,18 @@ package nashtech.ass.phuochg.coffeeshop.servicesimpl;
 
 import java.util.List;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import nashtech.ass.phuochg.coffeeshop.entities.Products;
 import nashtech.ass.phuochg.coffeeshop.repositories.ProductRepository;
 import nashtech.ass.phuochg.coffeeshop.services.ProductServices;
 
-@Service
+@Component
 public class ProductServiceImpl implements ProductServices {
 
 	@Autowired(required = false)
@@ -39,7 +43,6 @@ public class ProductServiceImpl implements ProductServices {
 		return null;
 	}
 
-	
 	public boolean deleteProduct(long id) {
 		if (id >= 1) {
 			Products products = productRepository.getById(id);
@@ -51,7 +54,6 @@ public class ProductServiceImpl implements ProductServices {
 		return false;
 	}
 
-	
 	public Products getOneProduct(long id) {
 
 		return productRepository.getById(id);
@@ -59,6 +61,13 @@ public class ProductServiceImpl implements ProductServices {
 
 	public List<Products> getAllProduct() {
 		return productRepository.findAll();
+	}
+
+	
+	@Override
+	
+	public List<Products> getAllProductbyCategory(long id) {		
+		return productRepository.getProductbyIdcategory(id);
 	}
 
 

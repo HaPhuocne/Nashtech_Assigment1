@@ -31,8 +31,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@NamedQueries({
-    @NamedQuery(name = "Account.getEmail", query = "SELECT a FROM Account a where a.email = :email")})
+//@NamedQueries({
+//    @NamedQuery(name = "Account.getEmail", query = "SELECT a FROM Account a where a.email = :email")})
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,7 +66,5 @@ public class Account {
 		this.email = email;
 		this.password = password;
 	}
-	
-	
 
 }

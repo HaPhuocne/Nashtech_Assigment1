@@ -24,6 +24,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Information {
+
+	public Information(String name2, String address2, String phone_Number, Account account2) {
+		this.name = name2;
+		this.address = name2;
+		this.phoneNumber = phone_Number;
+		this.account = account2;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idInfo;

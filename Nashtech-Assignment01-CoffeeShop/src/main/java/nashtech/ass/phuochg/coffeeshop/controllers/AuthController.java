@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import nashtech.ass.phuochg.coffeeshop.entities.Account;
+import nashtech.ass.phuochg.coffeeshop.entities.Information;
 import nashtech.ass.phuochg.coffeeshop.entities.Roles;
 import nashtech.ass.phuochg.coffeeshop.repositories.AccountRepository;
+import nashtech.ass.phuochg.coffeeshop.repositories.InfomationRepository;
 import nashtech.ass.phuochg.coffeeshop.repositories.RolesRepository;
 import nashtech.ass.phuochg.coffeeshop.request.LoginRequest;
 import nashtech.ass.phuochg.coffeeshop.request.SignupRequest;
@@ -43,16 +45,19 @@ public class AuthController {
     final private AccountRepository accounrR;
 
     final private RolesRepository roleRepository;
+    
+    final private InfomationRepository infomationRepository;
 
     final private PasswordEncoder encoder;
 
     final private JwtUtils jwtUtils;
 
     public AuthController (AuthenticationManager authenticationManager, AccountRepository accounrR,
-    		RolesRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils) {
+    		RolesRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils ,InfomationRepository infomationRepository) {
         this.authenticationManager = authenticationManager;
         this.accounrR = accounrR;
         this.roleRepository = roleRepository;
+		this.infomationRepository = infomationRepository;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
     }
@@ -88,7 +93,7 @@ public class AuthController {
     
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-    	Optional<Account> optionalAcc = accounrR.getEmail(signUpRequest.getEmail());
+    	Optional<Account> optionalAcc = accounrR.findByEmail(signUpRequest.getEmail());
         if (optionalAcc.isPresent()){
             return ResponseEntity
                 .badRequest()
@@ -100,15 +105,16 @@ public class AuthController {
                              encoder.encode(signUpRequest.getPassword()));
 
         String strRoles = signUpRequest.getRole();
-
-
-       
+            
         Optional<Roles> optionalRole= roleRepository.findById(Long.parseLong(strRoles));
         if(optionalRole.isPresent()) {
         	Roles roles = optionalRole.get();
         	account.setRoles(roles);
    
              accounrR.save(account);
+             Information info = new Information(signUpRequest.getName(),signUpRequest.getAddress(),
+            		 				signUpRequest.getPhoneNumber(),account);
+             infomationRepository.save(info);
              return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
         }
         new MessageResponse("Error: Email is already taken!");
