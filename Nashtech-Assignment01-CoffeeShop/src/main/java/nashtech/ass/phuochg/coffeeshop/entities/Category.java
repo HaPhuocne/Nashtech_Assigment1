@@ -18,23 +18,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name ="categories")
+@Table(name ="category")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 
-public class Categories {
+public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCategory;
 	
-	@Column(nullable = false,length = 256)
+	@Column(nullable = false,length = 256, unique = true)
 	private String nameCategory;
 	
 	
-	@OneToMany(mappedBy = "categories", cascade = CascadeType.ALL)
-	private Set<Products> products;
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	private Set<Product> product;
 	
 }

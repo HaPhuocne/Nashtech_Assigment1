@@ -2,27 +2,23 @@ package nashtech.ass.phuochg.coffeeshop.services;
 
 import java.util.List;
 
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-
 import org.springframework.stereotype.Service;
-import nashtech.ass.phuochg.coffeeshop.entities.Products;
+
+import nashtech.ass.phuochg.coffeeshop.entities.Product;
 @Service
-@NamedQueries({
-    @NamedQuery(name = "Products.getidCategory", query = "SELECT p FROM Products p where p.idCategory = :idCategory ")})
 public interface ProductServices {
 
-	public Products addProduct(Products products);
+	Product addProduct(Product products);
 	
-	public Products updateProduct(long id , Products products);
+	Product updateProduct(long id , Product products);
 
-	public boolean deleteProduct(long id);
+	 boolean deleteProduct(long id);
 	
+	 List<Product> getAllProduct();
 	
-	public List<Products> getAllProduct();
+	 List<Product> getAllProductbyCategory(long id);
+
+	 Product getOneProduct(long id);
 	
-	public List<Products> getAllProductbyCategory(long id);
-	
-	public Products getOneProduct(long id);
 
 }

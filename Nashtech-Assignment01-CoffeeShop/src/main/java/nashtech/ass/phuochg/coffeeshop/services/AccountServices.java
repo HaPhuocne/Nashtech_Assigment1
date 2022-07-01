@@ -17,5 +17,5 @@ public Account addAccount(Account account ,Information information);
 	
 	public List<Account> getAllAccount();
 	
-	public Account getOneAccount(long id);
+	public Account getIdAccount(long id);
 }

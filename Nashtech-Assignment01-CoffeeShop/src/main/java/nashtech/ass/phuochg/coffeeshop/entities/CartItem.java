@@ -1,18 +1,33 @@
+package nashtech.ass.phuochg.coffeeshop.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-@Data
+import lombok.Setter;
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItem {
 
-	private String image;
+
+
 	private Long idProduct;
-	private String name;
-	private float price;
+
+	private String productName;
+
+	private double price;
+
+	private String image;
+
 	private int quantity;
-	private String username;
-	private boolean status=false;
+
+
 }

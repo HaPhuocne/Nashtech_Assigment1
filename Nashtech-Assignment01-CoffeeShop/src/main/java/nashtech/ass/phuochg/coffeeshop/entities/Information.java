@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,13 +38,13 @@ public class Information {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idInfo;
-
+	@NotEmpty(message = "name not Found")
 	@Column(nullable = false, length = 256)
 	private String name;
-
-	@Column(nullable = false, length = 10)
+	@NotEmpty(message = "phoneNumber not Found")
+	@Column(nullable = false, length = 10,unique = true)
 	private String phoneNumber;
-
+	@NotEmpty(message = "address not Found")
 	@Column(nullable = false, length = 256)
 	private String address;
 

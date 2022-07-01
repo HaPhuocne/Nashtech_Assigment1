@@ -5,20 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import nashtech.ass.phuochg.coffeeshop.entities.Categories;
-import nashtech.ass.phuochg.coffeeshop.repositories.CategoriesRepository;
+import nashtech.ass.phuochg.coffeeshop.entities.Category;
+import nashtech.ass.phuochg.coffeeshop.repositories.CategoryRepository;
 import nashtech.ass.phuochg.coffeeshop.services.CategoryService;
 
 @Component
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
-	CategoriesRepository categoriesRepository;
+	CategoryRepository categoriesRepository;
 	
 	@Override
-	public Categories updateCategory(long id, Categories categories) {
+	public Category updateCategory(long id, Category categories) {
 			if (categories != null) {
-				Categories reCategories = categoriesRepository.getOne(id);
+				Category reCategories = categoriesRepository.getOne(id);
 				if (reCategories != null) {
 					reCategories.setNameCategory(categories.getNameCategory());
 				
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public boolean deleteCategory(long id) {
 		if (id >= 1) {
-			Categories categories = categoriesRepository.getById(id);
+			Category categories = categoriesRepository.getById(id);
 			if (categories != null) {
 				categoriesRepository.delete(categories);
 				return true;
@@ -42,19 +42,19 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Categories> getAllCategory() {
+	public List<Category> getAllCategory() {
 		// TODO Auto-generated method stub
 		return categoriesRepository.findAll();
 	}
 
 	@Override
-	public Categories getOneCategory(long id) {
+	public Category getOneCategory(long id) {
 		
 		return categoriesRepository.getById(id);
 	}
 
 	@Override
-	public Categories addPCategory(Categories categories) {
+	public Category addCategory(Category categories) {
 		
 		return categoriesRepository.save(categories);
 	}

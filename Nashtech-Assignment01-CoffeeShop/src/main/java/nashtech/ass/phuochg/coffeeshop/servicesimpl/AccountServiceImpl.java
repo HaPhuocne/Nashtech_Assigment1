@@ -1,25 +1,14 @@
 package nashtech.ass.phuochg.coffeeshop.servicesimpl;
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.management.relation.Role;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import nashtech.ass.phuochg.coffeeshop.entities.Account;
 import nashtech.ass.phuochg.coffeeshop.entities.Information;
-import nashtech.ass.phuochg.coffeeshop.entities.Products;
 import nashtech.ass.phuochg.coffeeshop.repositories.AccountRepository;
-import nashtech.ass.phuochg.coffeeshop.repositories.InfomationRepository;
-import nashtech.ass.phuochg.coffeeshop.repositories.RolesRepository;
-import nashtech.ass.phuochg.coffeeshop.security.services.UserDetailsImpl;
 import nashtech.ass.phuochg.coffeeshop.services.AccountServices;
-
+@Component
 public class AccountServiceImpl implements AccountServices {
 	Account account;
 	AccountRepository accountR;
@@ -73,7 +62,7 @@ public class AccountServiceImpl implements AccountServices {
 	}
 
 	@Override
-	public Account getOneAccount(long id) {
+	public Account getIdAccount(long id) {
 		
 		return accountR.getById(id);
 	}

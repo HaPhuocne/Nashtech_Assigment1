@@ -4,20 +4,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import nashtech.ass.phuochg.coffeeshop.entities.Categories;
+import nashtech.ass.phuochg.coffeeshop.entities.Category;
 
 @Service
 public interface CategoryService {
 	
-	public Categories addPCategory(Categories categories);
+	public Category addCategory(Category categories);
 
-	public Categories updateCategory(long id , Categories categories);
+	public Category updateCategory(long id , Category categories);
 
 	public boolean deleteCategory(long id);
 	
-	public List<Categories> getAllCategory();
+	public List<Category> getAllCategory();
 	
-	public Categories getOneCategory(long id);
+	public Category getOneCategory(long id);
 	
 	
 }

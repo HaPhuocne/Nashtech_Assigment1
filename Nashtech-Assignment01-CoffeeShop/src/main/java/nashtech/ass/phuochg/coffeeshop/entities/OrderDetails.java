@@ -1,6 +1,5 @@
 package nashtech.ass.phuochg.coffeeshop.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -35,19 +33,17 @@ public class OrderDetails {
 	private Orders orders;
 
 	@Column
-	private String orderdetailName;
+	private int quantity;
 	
 	@Column
-	private int quantity;
+	private double price;
 	
 	@Column
 	private double orderdetailPrice;
 	
-
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idProduct",referencedColumnName = "idProduct")
-	private Products products;
+	@ManyToOne
+	@JoinColumn(name = "idProduct")
+	private Product product;
 
 
 }
