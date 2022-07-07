@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import nashtech.ass.phuochg.coffeeshop.dto.ProductDto;
 import nashtech.ass.phuochg.coffeeshop.entities.Product;
 import nashtech.ass.phuochg.coffeeshop.entities.ResponseObject;
 import nashtech.ass.phuochg.coffeeshop.services.ProductServices;
@@ -26,29 +27,25 @@ public class ProductsController {
 	private ProductServices productServices;
 
 	@PostMapping("/")
-	public ResponseEntity<ResponseObject> addProduct(@Valid @RequestBody Product products) {
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(new ResponseObject("ok", "Insert product successfully", productServices.addProduct(products)));
+	public ResponseEntity<?> addProduct(@Valid @RequestBody ProductDto productDto) {
+		return productServices.addProduct(productDto);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ResponseObject> updateProduct(@PathVariable("id") long id, @RequestBody Product products) {
+	public ResponseEntity<?> updateProduct(@PathVariable("id") long id, @Valid @RequestBody ProductDto productDto) {
 
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseObject("ok", "update product successfully", productServices.updateProduct(id, products)));
+		return productServices.updateProduct(id, productDto);
 
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseObject> deleteProduct(@PathVariable("id") long id) {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ResponseObject("ok", "Delete product successsful", productServices.deleteProduct(id)));
+	public ResponseEntity<?> deleteProduct(@PathVariable("id") long id) {
+		return productServices.deleteProduct(id);
 	}
 
 	@GetMapping("/")
-	public ResponseEntity<ResponseObject> getAllProducts() {
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(new ResponseObject("ok", "List product successfully", productServices.getAllProduct()));
+	public ResponseEntity<?> getAllProducts() {
+		return productServices.getAllProduct();
 	}
 
 	@GetMapping("/{id}")

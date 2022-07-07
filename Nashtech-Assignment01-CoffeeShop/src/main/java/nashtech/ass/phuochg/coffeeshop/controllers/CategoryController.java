@@ -1,6 +1,8 @@
 package nashtech.ass.phuochg.coffeeshop.controllers;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import nashtech.ass.phuochg.coffeeshop.entities.Category;
+import nashtech.ass.phuochg.coffeeshop.dto.CategoryDto;
 import nashtech.ass.phuochg.coffeeshop.entities.ResponseObject;
 import nashtech.ass.phuochg.coffeeshop.services.CategoryService;
 
@@ -25,16 +27,14 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@PostMapping("/")
-	public ResponseEntity<ResponseObject> addCategory(@RequestBody Category categories) {
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseObject("ok", "Insert category successfully", categoryService.addCategory(categories)));
+	public CategoryDto addCategory(@Valid @RequestBody CategoryDto categoryDto) {
+		return categoryService.addCategory(categoryDto);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ResponseObject> updateCategory(@PathVariable("id") long id,
-			@RequestBody Category categories) {
+	public ResponseEntity<ResponseObject> updateCategory(@PathVariable long id,@Valid @RequestBody CategoryDto categoryDto) {
 		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("ok", "update category successfully",
-				categoryService.updateCategory(id, categories)));
+				categoryService.updateCategory(id, categoryDto)));
 	}
 
 	@DeleteMapping("/{id}")

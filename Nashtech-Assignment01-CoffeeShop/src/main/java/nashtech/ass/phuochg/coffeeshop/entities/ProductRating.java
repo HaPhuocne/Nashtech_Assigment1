@@ -6,7 +6,9 @@
 package nashtech.ass.phuochg.coffeeshop.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,31 +34,30 @@ import lombok.Setter;
  * @author Phước Hà
  */
 @Entity
-@Table(name = "information")
-@Getter
+@Table(name = "product_rating")
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Information implements Serializable {
+public class ProductRating implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_info")
-    private Long idInfo;
-    @Size(min = 1, max = 256)
-    @Column(name = "address")
-    private String address;
-    @Size(min = 1, max = 256)
-    @Column(name = "name")
-    private String name;
-    @Size(min = 1, max = 10)
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    @JoinColumn(name = "id_account", referencedColumnName = "id_account")
-    @ManyToOne
-    private Account account;
+	@Id
+	@NotNull
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_productRate")
+	private Long idproductRate;
+	@Size(max = 256)
+	@Column(name = "comment")
+	private String comment;
+	@NotNull
+	@Column(name = "rating")
+	private int rating;
+	@JoinColumn(name = "id_acount", referencedColumnName = "id_account")
+	@ManyToOne(optional = false)
+	private Account account;
+	@JoinColumn(name = "id_product", referencedColumnName = "id_product")
+	@ManyToOne(optional = false)
+	private Product product;
 
-    
 }

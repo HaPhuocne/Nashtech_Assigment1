@@ -2,23 +2,24 @@ package nashtech.ass.phuochg.coffeeshop.services;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import nashtech.ass.phuochg.coffeeshop.entities.Product;
+import nashtech.ass.phuochg.coffeeshop.dto.ProductDto;
 @Service
 public interface ProductServices {
 
-	Product addProduct(Product products);
+	ResponseEntity<?> addProduct(ProductDto productDto);
 	
-	Product updateProduct(long id , Product products);
+	ResponseEntity<?> updateProduct(long id , ProductDto productDto);
 
-	 boolean deleteProduct(long id);
+	ResponseEntity<?> deleteProduct(long id);
 	
-	 List<Product> getAllProduct();
+	 ResponseEntity<?> getAllProduct();
 	
-	 List<Product> getAllProductbyCategory(long id);
+	 List<ProductDto> getAllProductbyCategory(long id);
 
-	 Product getOneProduct(long id);
+	 ProductDto findByIdProduct(long id);
 	
 
 }

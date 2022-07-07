@@ -1,92 +1,98 @@
 package nashtech.ass.phuochg.coffeeshop.servicesimpl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import nashtech.ass.phuochg.coffeeshop.dto.ProductDto;
+import nashtech.ass.phuochg.coffeeshop.entities.Category;
 import nashtech.ass.phuochg.coffeeshop.entities.Product;
 import nashtech.ass.phuochg.coffeeshop.exceptions.handlers.ResourceFoundExceptions;
 import nashtech.ass.phuochg.coffeeshop.repositories.CategoryRepository;
 import nashtech.ass.phuochg.coffeeshop.repositories.ProductRepository;
+import nashtech.ass.phuochg.coffeeshop.response.MessageResponse;
 import nashtech.ass.phuochg.coffeeshop.services.ProductServices;
 
 @Component
 public class ProductServiceImpl implements ProductServices {
+	@Autowired
+	ProductRepository productRepository;
+	@Autowired
+	 CategoryRepository categoryRepository;
+	@Autowired
+	 ModelMapper modelMapper;
 
-	@Autowired(required = false)
-	private ProductRepository productRepository;
-	@Autowired(required = false)
-	Product products;
-	@Autowired(required = false)
-	CategoryRepository categoriesRepository;
-
-	public Product addProduct(Product products) {
-		boolean idexist = categoriesRepository.existsById(products.getCategory().getIdCategory());
-		if (idexist) {
-			try {
-				return productRepository.save(products);
-			} catch (Exception e) {
-				e.toString();
-			}
+	
+	
+	@Override
+	public ResponseEntity<?> addProduct(ProductDto productDto) {
+		Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategory().getIdCategory());
+		if(!optionalCategory.isPresent()) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Category not found"));
 		}
-		throw new ResourceFoundExceptions("Insert Fails");
-
-	}
-
-	public Product updateProduct(long id, Product products) {
-		if (products != null) {
-			Product reProducts = productRepository.getOne(id);
-			if (reProducts != null) {
-				try {
-					reProducts.setProductName(products.getProductName());
-					reProducts.setCategory(products.getCategory());
-					reProducts.setImage(products.getImage());
-					reProducts.setPrice(products.getPrice());
-					reProducts.setCreateDate(products.getCreateDate());
-					reProducts.setUpdateDate(products.getUpdateDate());
-					return productRepository.save(reProducts);
-				} catch (Exception e) {
-					e.toString();
-				}
-			}
-		}
-		throw new ResourceFoundExceptions("Update Fails");
-	}
-
-	public boolean deleteProduct(long id) {
-		try {
-			if (id >= 1) {
-				Product products = productRepository.getById(id);
-				if (products != null) {
-					productRepository.delete(products);
-					return true;
-				}
-			}
-			return false;
-		} catch (Exception e) {
-			e.toString();
-		}
-
-	}
-
-	public Product getOneProduct1(long id) {
-
-		return productRepository.getById(id);
-	}
-
-	public List<Product> getAllProduct() {
-		return productRepository.findAll();
+		
+		productRepository.save(modelMapper.map(productDto,Product.class));
+		return ResponseEntity.ok(new MessageResponse("Add new Product successfully"));
 	}
 
 	@Override
+	public  ResponseEntity<?> updateProduct(long id, ProductDto productDto) {
+				Optional<Product> optionalProduct = productRepository.findById(id);
+				if(!optionalProduct.isPresent()) {
+					throw new ResourceFoundExceptions("Product not found");
+				}
+				Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategory().getIdCategory());
+				if(!optionalCategory.isPresent()) {
+					return ResponseEntity.badRequest().body(new MessageResponse("Category not found"));
+				}
+				
+				
+				Product product = optionalProduct.get();
 
-	public List<Product> getAllProductbyCategory(long id) {
-		return productRepository.getProductbyIdcategory(id);
+				modelMapper.map(productDto, product);
+				product = productRepository.save(product);
+				return ResponseEntity.ok(new MessageResponse("Update Product successfully"));
 	}
 
-	public Product getOneProduct(long id) {
-		return productRepository.getByIdProduct(id);
+	@Override
+	public ResponseEntity<?> deleteProduct(long id) {
+		Optional<Product> optional = productRepository.findById(id);
+		if(optional.isPresent()) {
+			Product product = optional.get();
+			productRepository.delete(product);
+				return ResponseEntity.ok(new MessageResponse("The book deleted successfully")) ;
+			}	
+		throw new ResourceFoundExceptions("Product is not found");
 	}
 
+	@Override
+	public ResponseEntity<?> getAllProduct() {
+		List<Product> list = productRepository.findAll();
+		List<ProductDto> dto = new ArrayList<ProductDto>();
+		list.forEach(b -> dto.add(modelMapper.map(b, ProductDto.class)));
+		return ResponseEntity.ok(dto) ;
+	}
+
+	@Override
+	public List<ProductDto> getAllProductbyCategory(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProductDto findByIdProduct(long id) {
+				Optional<Product> optional = productRepository.findById(id);
+				if(optional.isPresent()) {
+					Product product = optional.get();
+					return modelMapper.map(product, ProductDto.class);
+				}
+				throw new ResourceFoundExceptions("Product not found");
+	}
+
+	
 }

@@ -39,10 +39,10 @@ public class UserDetailsImpl implements UserDetails {
 //            .collect(Collectors.toList());
     	
     	Collection<? extends GrantedAuthority> authorities = Collections
-    			.singleton(new SimpleGrantedAuthority(account.getRoles().getName()));
+    			.singleton(new SimpleGrantedAuthority(account.getRole().getName()));
 
         return new UserDetailsImpl(
-        		account.getIdAcount(),        	
+        		account.getIdAccount(),        	
         		account.getEmail(),
         		account.getPassword(),
             authorities);

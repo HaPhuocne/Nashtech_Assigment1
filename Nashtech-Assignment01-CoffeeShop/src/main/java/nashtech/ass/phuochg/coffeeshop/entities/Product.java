@@ -1,7 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package nashtech.ass.phuochg.coffeeshop.entities;
 
-import java.util.Set;
+import java.io.Serializable;
+import java.util.Collection;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,63 +16,62 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.annotations.Check;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ *
+ * @author Phước Hà
+ */
 @Entity
-@Check(constraints = "quantity >= 0")
 @Table(name = "product")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Product {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Product implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_product")
 	private Long idProduct;
-	
-	@Column(nullable = false, length = 256, unique = true)
-	private String productName;
-
-	@Column(nullable = false )
-	private double price;
-
-	@Column(length = 1000)
-	private String image;
-	
-	@Column(nullable = false  )
-	private int quantity;
-
-	@Column(length = 256)
+	@Size(max = 256)
+	@Column(name = "create_date")
 	private String createDate;
-
-	@Column(length = 256)
-	
+	@Size(max = 1000)
+	@Column(name = "image")
+	private String image;
+	@Column(name = "price")
+	private double price;
+	@Size(min = 1, max = 256)
+	@Column(name = "product_name")
+	private String productName;
+	@Column(name = "quantity")
+	private int quantity;
+	@Size(max = 256)
+	@Column(name = "update_date")
 	private String updateDate;
-	
-	
-	
-	@ManyToMany(mappedBy = "listProducts")
-    private Set<Account> accounts;
-
+	@JoinColumn(name = "id_category", referencedColumnName = "id_category")
 	@ManyToOne
-	@JoinColumn(name = "idCategory",referencedColumnName = "idCategory")
 	private Category category;
-	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private Set<OrderDetails> orderDetails;
-	
+	@OneToMany(mappedBy = "product")
+	private Collection<Orderdetails> orderdetailsCollection;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+	private Collection<ProductRating> productRatingCollection;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+	private Collection<CartItem> cartItemCollection;
+
 	
 
 }

@@ -1,66 +1,65 @@
 package nashtech.ass.phuochg.coffeeshop.entities;
 
-//import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
-//import lombok.Builder;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
 @Table(name = "accounts")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-//@NamedQueries({
-//    @NamedQuery(name = "Account.getEmail", query = "SELECT a FROM Account a where a.email = :email")})
-public class Account {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idAcount;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Account implements Serializable {
 
-	@Column(nullable = false, unique = true, length = 256)
-	private String email;
-
-	@Column(nullable = false, length = 64)
-	private String password;
-	
-	@ManyToOne
-	@JoinColumn(name = "idRole")
-	private Roles roles;
-	
-	@OneToMany(mappedBy = "account")
-	private Set<Orders> orders;
-	
-	@OneToOne(mappedBy = "account")
-	private Information information;
-
-	@ManyToMany
-	@JoinTable(name = "product_rating", joinColumns = @JoinColumn(name = "idAcount"), inverseJoinColumns = @JoinColumn(name = "idProduct"))
-
-	private List<Product> listProducts;
-
-	public Account(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
+    public Account(String email2, String encode) {
+		this.email = email2;
+		this.password = encode;
 	}
+	private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "id_account")
+    private Long idAccount;
+    @NotNull
+    @Size(min = 1, max = 256)
+    @Column(name = "email")
+    private String email;
+    @NotNull
+    @Size(min = 1, max = 64)
+    @Column(name = "password")
+    private String password;
+    @OneToMany(mappedBy = "account")
+    private Collection<Information> informationCollection;
+    @OneToMany(mappedBy = "account")
+    private Collection<Orders> ordersCollection;
+    @JoinColumn(name = "id_role", referencedColumnName = "id_role")
+    @ManyToOne
+    private Roles role;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<ProductRating> productRatingCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<CartItem> cartItemCollection;
 
+   
 }

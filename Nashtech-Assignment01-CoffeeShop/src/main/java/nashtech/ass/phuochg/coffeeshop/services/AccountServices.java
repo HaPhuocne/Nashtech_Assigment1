@@ -2,20 +2,19 @@ package nashtech.ass.phuochg.coffeeshop.services;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import nashtech.ass.phuochg.coffeeshop.dto.PasswordDto;
 import nashtech.ass.phuochg.coffeeshop.entities.Account;
-import nashtech.ass.phuochg.coffeeshop.entities.Information;
 
 @Service
 public interface AccountServices {
-public Account addAccount(Account account ,Information information);
+//public Account addAccount(Account account ,Information information);
 	
-	public Account updateAccount(long id , Account products);
-
-	public boolean deleteAccount(long id);
-	
+	public ResponseEntity<?> updateAccount(long id , PasswordDto accountDto);
+	public ResponseEntity<?> deleteAccount(long id);
 	public List<Account> getAllAccount();
-	
-	public Account getIdAccount(long id);
-}
+	public ResponseEntity<?> getOrdersbyIdAccount(Long idAccount);
+	}
+

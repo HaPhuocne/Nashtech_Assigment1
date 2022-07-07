@@ -1,71 +1,71 @@
 package nashtech.ass.phuochg.coffeeshop.servicesimpl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import nashtech.ass.phuochg.coffeeshop.dto.PasswordDto;
+import nashtech.ass.phuochg.coffeeshop.dto.OrdersDto;
 import nashtech.ass.phuochg.coffeeshop.entities.Account;
-import nashtech.ass.phuochg.coffeeshop.entities.Information;
+import nashtech.ass.phuochg.coffeeshop.exceptions.handlers.ResourceFoundExceptions;
 import nashtech.ass.phuochg.coffeeshop.repositories.AccountRepository;
+import nashtech.ass.phuochg.coffeeshop.response.MessageResponse;
 import nashtech.ass.phuochg.coffeeshop.services.AccountServices;
 @Component
 public class AccountServiceImpl implements AccountServices {
-	Account account;
-	AccountRepository accountR;
-//	
-//	@Autowired
-//	Information infor;
-//	@Autowired
-//	InfomationRepository inforR;
-//	
-//	@Autowired
-//	Role role;
-//	@Autowired
-//	RolesRepository roleR;
-
-	
-	
-	@Override
-	public Account addAccount(Account account ,Information information) {					
-		return accountR.save(account);
-	}
+	@Autowired
+	 AccountRepository accountRepository;
+	@Autowired
+	ModelMapper modelMapper;
 
 	@Override
-	public Account updateAccount(long id, Account account) {
-		if(account !=null) {
-			Account reAccount = accountR.getById(id);
-			if(reAccount != null) {
-				reAccount.setPassword(account.getPassword());
-				reAccount.setRoles(account.getRoles());
-				return accountR.save(reAccount);
-			}
-		}				
-		return null;
-	}
-
-	@Override
-	public boolean deleteAccount(long id) {
-		if(id >1) {
-			Account account = accountR.getById(id);
-			if(account != null) {
-				accountR.delete(account);
-				return true;
-			}
+	public ResponseEntity<?> updateAccount(long id, PasswordDto accountDto) {
+		// TODO Auto-generated method stub
+		Optional<Account> optional = accountRepository.findById(id);
+		if(!optional.isPresent()) {
+			throw new ResourceFoundExceptions("Account is not found");
 		}
-		return false;
+		Account account = optional.get();
+		account.setPassword(accountDto.getPassword());
+		accountRepository.save(account);
+		
+		return ResponseEntity.ok(new MessageResponse("Update password successfully"));
 	}
-
+	@Override
+	public ResponseEntity<?> deleteAccount(long id) {
+		Optional<Account> optional = accountRepository.findById(id);
+		if(!optional.isPresent()) {
+			throw new ResourceFoundExceptions("Account is not found");
+		}
+		Account account = optional.get();
+		accountRepository.delete(account);
+		return ResponseEntity.ok(new MessageResponse("The account delete successfully"));
+	}
 	@Override
 	public List<Account> getAllAccount() {
-	
-		return accountR.findAll();
+		return accountRepository.findAll();
+	}
+	@Override
+	public ResponseEntity<?> getOrdersbyIdAccount(Long idAccount) {
+		// TODO Auto-generated method stub
+				Optional<Account> optional = accountRepository.findById(idAccount);
+				if(!optional.isPresent()) {
+					throw new ResourceFoundExceptions("Account not found");
+				}
+				Account account = optional.get();
+				if(account.getOrdersCollection().size() == 0) {
+					return ResponseEntity.ok("Account don't have orders");
+				}
+				List<OrdersDto> list = new ArrayList<OrdersDto>();
+				account.getOrdersCollection().forEach(order -> list.add(modelMapper.map(order, OrdersDto.class)));
+				return ResponseEntity.ok(list);
 	}
 
-	@Override
-	public Account getIdAccount(long id) {
-		
-		return accountR.getById(id);
-	}
 
 	
 }
