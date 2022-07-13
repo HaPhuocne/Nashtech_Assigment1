@@ -1,9 +1,6 @@
 package nashtech.ass.phuochg.coffeeshop.test;
 
 
-
-
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
@@ -53,7 +50,7 @@ public class ProductServiceTest {
 		  product = mock(Product.class);
 		  
 		  when(productRepository.save(product)).thenReturn(product);
-			when(modelMapper.map(productDto,Product.class)).thenReturn(product);
+		  when(modelMapper.map(productDto,Product.class)).thenReturn(product);
 			
 //	        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
 //	        when(productRepository.save(product)).thenReturn(product);
