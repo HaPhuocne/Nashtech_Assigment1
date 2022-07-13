@@ -24,14 +24,15 @@ public class ProductServiceImpl implements ProductServices {
 	ProductRepository productRepository;
 	@Autowired
 	 CategoryRepository categoryRepository;
-	@Autowired
-	 ModelMapper modelMapper;
+
+	private ModelMapper modelMapper;
 
 
 
-	public ProductServiceImpl(ProductRepository productRepository2, CategoryRepository categoryRepository2) {
+	public ProductServiceImpl(ProductRepository productRepository2, CategoryRepository categoryRepository2,ModelMapper modelMapper) {
 	this.productRepository =productRepository2;
 	this.categoryRepository = categoryRepository2;
+	this.modelMapper = modelMapper;
 	}
 
 	@Override

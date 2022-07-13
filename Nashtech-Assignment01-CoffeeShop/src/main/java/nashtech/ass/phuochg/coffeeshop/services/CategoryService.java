@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import nashtech.ass.phuochg.coffeeshop.dto.CategoryDto;
-import nashtech.ass.phuochg.coffeeshop.entities.Category;
 
 @Service
 public interface CategoryService {
@@ -19,7 +18,7 @@ public interface CategoryService {
 	
 	public List<CategoryDto> getAllCategory();
 	
-	public Category findbyIdCategory(long id);
+//	public Category findbyIdCategory(long id);
 	
 	
 }

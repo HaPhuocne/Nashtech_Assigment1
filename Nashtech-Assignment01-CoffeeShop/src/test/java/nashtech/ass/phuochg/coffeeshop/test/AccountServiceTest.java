@@ -21,6 +21,7 @@ import nashtech.ass.phuochg.coffeeshop.dto.PasswordDto;
 import nashtech.ass.phuochg.coffeeshop.entities.Account;
 import nashtech.ass.phuochg.coffeeshop.exceptions.handlers.ResourceFoundExceptions;
 import nashtech.ass.phuochg.coffeeshop.repositories.AccountRepository;
+import nashtech.ass.phuochg.coffeeshop.repositories.RolesRepository;
 import nashtech.ass.phuochg.coffeeshop.servicesimpl.AccountServiceImpl;
 
 public class AccountServiceTest {
@@ -36,6 +37,8 @@ public class AccountServiceTest {
 	PasswordDto passwordDto ;
 	@Autowired
     PasswordEncoder encoder;
+	@Autowired
+    RolesRepository rolesRepository;
 	
 	private	Account initialAccount;
 	private Account expectedAccount;
@@ -64,6 +67,7 @@ public class AccountServiceTest {
 		verify(account).setPassword(passwordDto.getPassword());
 		assertThat(result.getStatusCode(), is(HttpStatus.OK));
 	}
+
 	
 	@Test
 	public void updatePassword_ShouldThrowResourceNotFoundException_WhenAccountIdNotFound() {

@@ -31,14 +31,14 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@PostMapping("/")
-	@PreAuthorize("hasAuthority('admin')")
+//	@PreAuthorize("hasAuthority('admin')")
 
 	public CategoryDto addCategory(@Valid @RequestBody CategoryDto categoryDto) {
 		return categoryService.addCategory(categoryDto);
 	}
 	
 	@PutMapping("/{id}")
-	@PreAuthorize("hasAuthority('admin')")
+//	@PreAuthorize("hasAuthority('admin')")
 
 	public ResponseEntity<ResponseObject> updateCategory(@PathVariable long id,@Valid @RequestBody CategoryDto categoryDto) {
 		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("ok", "update category successfully",
@@ -46,7 +46,7 @@ public class CategoryController {
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasAuthority('admin')")
+//	@PreAuthorize("hasAuthority('admin')")
 
 	public ResponseEntity<ResponseObject> deleteCategory(@PathVariable("id") long id) {
 		return ResponseEntity.status(HttpStatus.OK)

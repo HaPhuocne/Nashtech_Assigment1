@@ -25,6 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	ModelMapper modelMapper;
 	
+	public CategoryServiceImpl(CategoryRepository categoryRepository2, ModelMapper modelMapper2) {
+		this.categoryRepository = categoryRepository2;
+		this.modelMapper = modelMapper2;
+	}
+
 	@Override
 	public CategoryDto addCategory(CategoryDto categoryDto) {
 		Category category = categoryRepository.save(modelMapper.map(categoryDto, Category.class));
@@ -62,11 +67,11 @@ public class CategoryServiceImpl implements CategoryService {
 		return listDto;
 	}
 
-	@Override
-	public Category findbyIdCategory(long id) {	
-		return null;
-	}
-	
+//	@Override
+//	public Category findbyIdCategory(long id) {	
+//		return null;
+//	}
+//	
 	
 	
 }
