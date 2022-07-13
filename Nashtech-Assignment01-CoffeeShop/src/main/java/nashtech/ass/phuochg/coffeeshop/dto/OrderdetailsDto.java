@@ -10,23 +10,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nashtech.ass.phuochg.coffeeshop.entities.Orders;
-import nashtech.ass.phuochg.coffeeshop.entities.Product;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderdetailsDto  {
+public class OrderdetailsDto {
 
-      
-    private Double orderdetailPrice;
-    private Double price;
-    private Integer quantity;
+	private Long idOrderDetail;
+	private Double price;
+	private Integer quantity;
 
-    private Product product;
+	private ProductDto product;
+	private OrdersDto order;
 
-    
-    
 }

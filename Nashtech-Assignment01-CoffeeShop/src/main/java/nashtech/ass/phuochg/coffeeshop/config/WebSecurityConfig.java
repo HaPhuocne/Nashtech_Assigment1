@@ -28,6 +28,8 @@ import nashtech.ass.phuochg.coffeeshop.security.services.UserDetailsServiceImpl;
     // securedEnabled = true,
     // jsr250Enabled = true,
     prePostEnabled = true)
+
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
@@ -41,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.unauthorizedHandler = unauthorizedHandler;
         this.jwtUtils = jwtUtils;
     }
+    
+    
 
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {
@@ -71,8 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             	.antMatchers("/api/auth/**", "/api/public/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-//            	.antMatchers().permitAll()
-            .anyRequest().authenticated();
+            	.anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

@@ -27,8 +27,13 @@ public class ProductServiceImpl implements ProductServices {
 	@Autowired
 	 ModelMapper modelMapper;
 
-	
-	
+
+
+	public ProductServiceImpl(ProductRepository productRepository2, CategoryRepository categoryRepository2) {
+	this.productRepository =productRepository2;
+	this.categoryRepository = categoryRepository2;
+	}
+
 	@Override
 	public ResponseEntity<?> addProduct(ProductDto productDto) {
 		Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategory().getIdCategory());
@@ -53,7 +58,7 @@ public class ProductServiceImpl implements ProductServices {
 				
 				
 				Product product = optionalProduct.get();
-
+				product.setCategory(null);
 				modelMapper.map(productDto, product);
 				product = productRepository.save(product);
 				return ResponseEntity.ok(new MessageResponse("Update Product successfully"));

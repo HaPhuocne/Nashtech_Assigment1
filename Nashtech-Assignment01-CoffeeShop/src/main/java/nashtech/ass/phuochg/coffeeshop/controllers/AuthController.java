@@ -27,14 +27,6 @@ public class AuthController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		return authService.authenticateUser(loginRequest);
 	}
-//        @PostMapping("/signup")
-//        @Transactional
-//     public Account registerAccount(@Valid @RequestBody Account account, @RequestBody Information information){
-//            System.out.println(account.getEmail());
-//            System.out.println(information.getName());
-//        return accountService.addAccount(account,information);
-//    }
-
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		return authService.signup(signUpRequest);

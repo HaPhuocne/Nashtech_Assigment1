@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nashtech.ass.phuochg.coffeeshop.entities.Account;
-import nashtech.ass.phuochg.coffeeshop.entities.Product;
 
 @Getter
 @Setter
@@ -30,6 +29,6 @@ public class ProductRating {
 
 	private Account account;
 
-	private Product product;
+	private ProductDto product;
 
 }

@@ -82,6 +82,7 @@ public class AuthServiceImpl implements AuthService {
         Optional<Roles> optional =  roleRepository.findById(Long.parseLong(role));
         if(optional.isPresent()) {
             Roles r = optional.get();
+            r.setIdRole(Long.parseLong("2"));
             user.setRole(r);
            user = accountRepository.save(user);
           

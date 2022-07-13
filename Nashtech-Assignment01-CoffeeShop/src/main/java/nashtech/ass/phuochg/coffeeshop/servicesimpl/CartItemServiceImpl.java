@@ -1,6 +1,7 @@
 package nashtech.ass.phuochg.coffeeshop.servicesimpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ public class CartItemServiceImpl implements CarItemService {
 	ModelMapper modelMapper;
 
 	@Override
-	public ResponseEntity<?> getCartByIdAccount(Long idAccount) {
+	public Collection<CartItemDto> getCartByIdAccount(Long idAccount) {
 		Optional<Account> optionalAccount = accountRepository.findById(idAccount);
 		if (!optionalAccount.isPresent()) {
 			throw new ResourceFoundExceptions("Account not found");
@@ -43,7 +44,7 @@ public class CartItemServiceImpl implements CarItemService {
 		List<CartItem> list = accountRepository.findCartByIdAccount(idAccount);
 		List<CartItemDto> dto = new ArrayList<CartItemDto>();
 		list.forEach(c -> dto.add(modelMapper.map(c, CartItemDto.class)));
-		return ResponseEntity.ok(dto);
+		return dto;
 	}
 
 	@Override

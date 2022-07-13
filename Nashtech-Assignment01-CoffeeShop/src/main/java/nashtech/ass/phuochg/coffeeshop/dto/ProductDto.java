@@ -14,7 +14,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nashtech.ass.phuochg.coffeeshop.entities.Category;
 
 @Getter
 @Setter
@@ -39,7 +38,7 @@ public class ProductDto {
 
 	private String updateDate;
     @NotNull(message = "Category must not be null")
-	private Category category;
+	private CategoryDto category;
 
 
 }

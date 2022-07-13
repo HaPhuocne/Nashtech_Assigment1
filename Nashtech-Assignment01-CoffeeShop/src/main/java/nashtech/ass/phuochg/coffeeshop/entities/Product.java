@@ -8,7 +8,6 @@ package nashtech.ass.phuochg.coffeeshop.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,14 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  *
@@ -34,11 +28,8 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "product")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Data
+
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;

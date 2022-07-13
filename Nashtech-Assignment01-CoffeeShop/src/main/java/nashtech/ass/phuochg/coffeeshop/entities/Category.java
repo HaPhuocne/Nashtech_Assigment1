@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -34,6 +36,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Inheritance(strategy=InheritanceType.JOINED)
+
+
 public class Category implements Serializable {
     /**
 	 * 
@@ -45,7 +50,7 @@ public class Category implements Serializable {
     private Long idCategory;
 
     @Size(min = 1, max = 256)
-    @Column(name = "category_name", nullable = false, length = 100)
+    @Column(name = "category_name",length = 100)
     private String nameCategory;
     @OneToMany(mappedBy = "category")
     private Collection<Product> productCollection;

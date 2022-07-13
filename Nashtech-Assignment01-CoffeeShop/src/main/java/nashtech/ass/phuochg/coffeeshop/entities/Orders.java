@@ -39,7 +39,6 @@ public class Orders implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_order")
 	private Long idOrder;

@@ -41,13 +41,9 @@ public class Orderdetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_order_detail")
     private Long idOrderDetail;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "orderdetail_price")
-    private Double orderdetailPrice;
     @Column(name = "price")
     private Double price;
     @Column(name = "quantity")

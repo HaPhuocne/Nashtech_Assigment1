@@ -12,7 +12,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nashtech.ass.phuochg.coffeeshop.entities.Account;
 
 @Getter
 @Setter
@@ -27,8 +26,8 @@ public class OrdersDto {
 
 	private Double total;
 
-	private Collection<OrderdetailsDto> orderdetailsCollection;
+//	private Collection<OrderdetailsDto> orderdetailsCollection;
 
-	private Account account;
+	private AccountDto account;
 
 }

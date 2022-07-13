@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import nashtech.ass.phuochg.coffeeshop.dto.PasswordDto;
@@ -22,7 +23,14 @@ public class AccountServiceImpl implements AccountServices {
 	 AccountRepository accountRepository;
 	@Autowired
 	ModelMapper modelMapper;
-
+	 @Autowired
+     PasswordEncoder encoder;
+	public AccountServiceImpl(AccountRepository accountRepository2, ModelMapper modelMapper2,
+			PasswordEncoder encoder2) {
+		this.accountRepository = accountRepository2;
+		this.modelMapper = modelMapper2;
+		this.encoder = encoder2;
+	}
 	@Override
 	public ResponseEntity<?> updateAccount(long id, PasswordDto accountDto) {
 		// TODO Auto-generated method stub
@@ -31,7 +39,7 @@ public class AccountServiceImpl implements AccountServices {
 			throw new ResourceFoundExceptions("Account is not found");
 		}
 		Account account = optional.get();
-		account.setPassword(accountDto.getPassword());
+		account.setPassword(encoder.encode(accountDto.getPassword()));
 		accountRepository.save(account);
 		
 		return ResponseEntity.ok(new MessageResponse("Update password successfully"));
@@ -40,7 +48,7 @@ public class AccountServiceImpl implements AccountServices {
 	public ResponseEntity<?> deleteAccount(long id) {
 		Optional<Account> optional = accountRepository.findById(id);
 		if(!optional.isPresent()) {
-			throw new ResourceFoundExceptions("Account is not found");
+			throw new ResourceFoundExceptions("Account not found");
 		}
 		Account account = optional.get();
 		accountRepository.delete(account);
